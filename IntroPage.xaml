@@ -65,7 +65,7 @@
                     CornerRadius="{OnPlatform iOS=25,
                                               Android=25}"
                     HeightRequest="50"
-                    IsVisible="{Binding LastPositionReached, Converter={StaticResource InverseBooleanConverter}}"
+                    IsVisible="{Binding LastPositionReached, Converter={StaticResource InvertedBoolConverter}}"
                     Style="{StaticResource smallTitleViewButton}"
                     Text="Next"
                     WidthRequest="150" />
