@@ -1,0 +1,91 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="MauiAppCarouselViewProblem.IntroPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:dto="clr-namespace:MauiAppCarouselViewProblem">
+
+    <ContentPage.Content>
+        <Grid RowDefinitions="*, Auto">
+
+            <CarouselView
+                Grid.Row="0"
+                HorizontalScrollBarVisibility="Never"
+                IndicatorView="IndicatorView"
+                IsSwipeEnabled="True"
+                ItemsSource="{Binding IntroList}"
+                Loop="False"
+                Position="{Binding CurrentPosition}"
+                VerticalOptions="End">
+                <CarouselView.ItemTemplate>
+                    <DataTemplate x:DataType="dto:IntroModel">
+                        <Grid
+                            ColumnDefinitions="*"
+                            RowDefinitions="2*, *"
+                            RowSpacing="0">
+                            <Image
+                                Grid.Row="0"
+                                HeightRequest="{OnPlatform iOS=500,
+                                                           Android=400}"
+                                Source="{Binding Source}"
+                                WidthRequest="{OnPlatform iOS=350,
+                                                          Android=300}" />
+
+                            <Grid
+                                Grid.Row="1"
+                                Margin="20"
+                                RowDefinitions="Auto, Auto"
+                                RowSpacing="20">
+                                <Label
+                                    Grid.Row="0"
+                                    FontAttributes="Bold"
+                                    FontSize="Large"
+                                    HorizontalOptions="Center"
+                                    Text="{Binding Title}" />
+                                <Label
+                                    Grid.Row="1"
+                                    HorizontalOptions="Center"
+                                    HorizontalTextAlignment="Center"
+                                    Text="{Binding SubTitle}"
+                                    TextColor="{StaticResource DazeGray}" />
+                            </Grid>
+                        </Grid>
+                    </DataTemplate>
+                </CarouselView.ItemTemplate>
+            </CarouselView>
+
+            <Grid
+                Grid.Row="1"
+                ColumnDefinitions="*"
+                RowDefinitions="Auto, Auto"
+                RowSpacing="20">
+                <Button
+                    Grid.Row="0"
+                    Command="{Binding NextCommand}"
+                    CornerRadius="{OnPlatform iOS=25,
+                                              Android=25}"
+                    HeightRequest="50"
+                    IsVisible="{Binding LastPositionReached, Converter={StaticResource InverseBooleanConverter}}"
+                    Style="{StaticResource smallTitleViewButton}"
+                    Text="Next"
+                    WidthRequest="150" />
+                <Button
+                    Grid.Row="0"
+                    Command="{Binding EndCommand}"
+                    HeightRequest="50"
+                    IsVisible="{Binding LastPositionReached}"
+                    Text="Continue"
+                    WidthRequest="150" />
+                <IndicatorView
+                    x:Name="IndicatorView"
+                    Grid.Row="1"
+                    HorizontalOptions="Center"
+                    IndicatorColor="{StaticResource DazeGray}"
+                    IndicatorSize="{OnPlatform iOS=6,
+                                               Android=8}"
+                    SelectedIndicatorColor="{StaticResource DazeBlue}" />
+            </Grid>
+
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>
